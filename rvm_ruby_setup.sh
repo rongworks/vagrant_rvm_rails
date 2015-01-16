@@ -10,14 +10,15 @@ then
   \curl -sSL https://get.rvm.io | bash -s stable --ruby
   # add progress bar
   #echo progress-bar >> ~/.curlrc
+  # inject rvm into bash
+  echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"' >> .bashrc
+  source .bashrc
+  source ~/.rvm/scripts/rvm
   touch $HOME/rvm_install_flag
 else
   echo "rvm already installed, flag set $HOME/rvm_install_flag"
 fi
-# inject rvm into bash
-echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"' >> .bashrc
 
-source .bashrc
 source ~/.rvm/scripts/rvm
 
 echo "## Avaiable Rubies:"
@@ -34,3 +35,12 @@ rvm use $version --default
 echo "## Install rails"
 gem install rails
 
+echo "## Check install"
+echo "RVM ruby"
+rvm-prompt
+echo "Gemset"
+rvm gemset name
+echo "Ruby Version"
+ruby -v
+echo "Rails version"
+rails -v
